@@ -183,6 +183,14 @@ func (config *Configuration) defaultSettings() {
 	config.CombinedUpgrade = false
 }
 
+func (string dir) expandUser() {
+    if strings.HasPrefix(dir, "~") {
+        if len(dir) == 1 {
+            return "$HOME"
+        }
+    }
+}
+
 func (config *Configuration) expandEnv() {
 	config.AURURL = os.ExpandEnv(config.AURURL)
 	if strings.HasPrefix(config.BuildDir, "~"+string(os.PathSeparator)) {
